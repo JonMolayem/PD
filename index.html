@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PYP PD-Palooza</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  
+  <style>
+    :root {
+      --primary-blue: #0077C8;
+      --light-blue: #E6F4F1;
+      --primary-green: #78BE20;
+      --dark-green: #5A9118;
+      --white: #FFFFFF;
+      --text-dark: #333333;
+      --gray: #F4F4F4;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Nunito', sans-serif; }
+    
+    body { background-color: var(--light-blue); color: var(--text-dark); padding-bottom: 70px; }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, var(--primary-blue), var(--primary-green));
+      color: var(--white);
+      text-align: center;
+      padding: 2rem 1rem;
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    header h1 { font-weight: 900; font-size: 2rem; letter-spacing: 1px; }
+    header p { font-size: 1rem; opacity: 0.9; margin-top: 5px; }
+
+    /* Containers */
+    .container { max-width: 600px; margin: 0 auto; padding: 1.5rem 1rem; }
+    .hidden { display: none !important; }
+
+    /* Login Screen */
+    #login-screen { text-align: center; margin-top: 20vh; }
+    .login-box {
+      background: var(--white); padding: 2rem; border-radius: 15px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    }
+    input[type="email"] {
+      width: 100%; padding: 12px; margin: 15px 0; border: 2px solid var(--primary-blue);
+      border-radius: 8px; font-size: 1rem; outline: none;
+    }
+    .btn {
+      background-color: var(--primary-green); color: white; border: none;
+      padding: 12px 20px; font-size: 1.1rem; font-weight: bold; border-radius: 8px;
+      cursor: pointer; width: 100%; transition: transform 0.1s, background 0.2s;
+    }
+    .btn:active { transform: scale(0.95); }
+    .btn:hover { background-color: var(--dark-green); }
+    .btn.remove-btn { background-color: #ff4d4d; }
+
+    /* Time Slot Headers */
+    .time-slot-header {
+      background-color: var(--primary-blue); color: white; padding: 10px 15px;
+      border-radius: 8px; margin: 20px 0 10px 0; font-weight: bold; font-size: 1.2rem;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--white); border-radius: 12px; padding: 15px; margin-bottom: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05); border-left: 5px solid var(--primary-green);
+      transition: transform 0.2s;
+    }
+    .card h3 { color: var(--primary-blue); margin-bottom: 5px; font-size: 1.1rem; }
+    .card .presenter { font-weight: bold; color: var(--dark-green); font-size: 0.9rem; margin-bottom: 5px; }
+    .card .room { font-size: 0.85rem; color: #666; margin-bottom: 10px; font-style: italic; }
+    .card p { font-size: 0.9rem; line-height: 1.4; margin-bottom: 10px; }
+    
+    /* Collapsible Bios */
+    .bio-content { display: none; font-size: 0.85rem; background: var(--gray); padding: 10px; border-radius: 6px; margin-bottom: 10px;}
+    .bio-toggle { color: var(--primary-blue); font-size: 0.85rem; cursor: pointer; text-decoration: underline; margin-bottom: 10px; display: inline-block; }
+
+    /* Bottom Nav */
+    nav {
+      position: fixed; bottom: 0; left: 0; width: 100%; background: var(--white);
+      display: flex; justify-content: space-around; padding: 10px 0;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.1); z-index: 1000;
+    }
+    .nav-item {
+      text-align: center; color: #888; text-decoration: none; font-size: 0.9rem;
+      font-weight: bold; cursor: pointer; flex: 1; padding: 10px 0; transition: color 0.2s;
+    }
+    .nav-item.active { color: var(--primary-blue); border-bottom: 3px solid var(--primary-green); }
+    
+    /* Status Badge */
+    .status-badge {
+      display: inline-block; padding: 5px 10px; border-radius: 20px; font-size: 0.8rem;
+      font-weight: bold; margin-bottom: 10px; background: var(--light-blue); color: var(--primary-blue);
+    }
+  </style>
+</head>
+<body>
+
+  <div id="login-screen" class="container">
+    <div class="login-box">
+      <h1 style="color: var(--primary-blue); margin-bottom: 10px;">PYP PD-Palooza</h1>
+      <p style="margin-bottom: 20px;">Silicon Valley International School</p>
+      <input type="email" id="email-input" placeholder="Enter your school email" required>
+      <button class="btn" onclick="login()">Enter the Palooza 🎉</button>
+    </div>
+  </div>
+
+  <div id="app-screen" class="hidden">
+    <header>
+      <h1>PYP PD-Palooza</h1>
+      <p>March 27 Afternoon Sessions</p>
+    </header>
+
+    <div class="container" id="catalog-view">
+      <p style="text-align: center; margin-bottom: 15px; font-weight: bold;" id="welcome-text"></p>
+      <div id="catalog-content"></div>
+    </div>
+
+    <div class="container hidden" id="schedule-view">
+      <h2 style="color: var(--primary-blue); margin-bottom: 15px; text-align: center;">My Schedule</h2>
+      <div id="schedule-content"></div>
+    </div>
+
+    <nav>
+      <div class="nav-item active" id="nav-catalog" onclick="switchTab('catalog')">Sessions</div>
+      <div class="nav-item" id="nav-schedule" onclick="switchTab('schedule')">My Sessions</div>
+      <a class="nav-item" href="https://padlet.com/jonmolayem/intl-pd-palooza-znb82labpa6bcx2h" target="_blank" style="display: block;">Padlet ↗</a>
+    </nav>
+  </div>
+
+  <script>
+    // --- The Data ---
+    const sessionsData = [
+      {
+        slot: "Session 1: 1:00 PM - 1:30 PM",
+        id: "s1_1",
+        title: "Neurodivergence, emotional regulation, SEL",
+        presenter: "Bhavane Nair",
+        room: "4th and 5th grade classrooms",
+        summary: "Discover the 'why' behind student behavior by learning how dysregulation shows up in the classroom and how thoughtfully designed regulation stations can support different needs.",
+        bio: "Bio information pending."
+      },
+      {
+        slot: "Session 1: 1:00 PM - 1:30 PM",
+        id: "s1_2",
+        title: "Agency, Action, and Engagement",
+        presenter: "Guillaume Tapon",
+        room: "Room 237",
+        summary: "Discover how to move from simple participation to inspired student ownership using practical frameworks like the 'Response-o-meter' and 'Why Chain'.",
+        bio: "Guillaume is a 3rd Grade French Teacher. Born in Bordeaux, France, he holds a Master’s in Education and has taught in France and California. He enjoys nature, reading, and yoga."
+      },
+      {
+        slot: "Session 1: 1:00 PM - 1:30 PM",
+        id: "s1_3",
+        title: "Lire pour comprendre",
+        presenter: "Janine Batal-Hakim & Mélanie Laporte",
+        room: "Room 235",
+        summary: "Reading comprehension strategies for early learners.",
+        bio: "Janine: 1st Grade French Teacher from Lebanon, Montessori certified. Melanie: Kindergarten French Teacher from Montreal with 20+ years experience."
+      },
+      {
+        slot: "Session 1: 1:00 PM - 1:30 PM",
+        id: "s1_4",
+        title: "Canva AI",
+        presenter: "Craig Miller & Nicole Frey",
+        room: "Room 212",
+        summary: "Learn how to utilize Canva AI tools in the classroom.",
+        bio: "Nicole is a 3rd Grade English Teacher returning from 16 years abroad. Craig is a 3rd Grade English Teacher from the UK with a strong background in educational technology."
+      },
+      {
+        slot: "Session 1: 1:00 PM - 1:30 PM",
+        id: "s1_5",
+        title: "CIRC workshop and school visit",
+        presenter: "Portia Yang",
+        room: "Room 213",
+        summary: "Sharing photos and Reggio-inspired strategies gathered from a visit to CIRC, focusing on the environment as the 'third teacher'.",
+        bio: "Portia is a 1st Grade Chinese Teacher born in Taiwan, passionate about the IB curriculum and independent learners."
+      },
+      // --- Session 2 ---
+      {
+        slot: "Session 2: 1:30 PM - 2:00 PM",
+        id: "s2_1",
+        title: "Supporting Neurodiverse Learners",
+        presenter: "Dunja Zaun, Katharina Ulmer & Fatima Maslic",
+        room: "Room 237",
+        summary: "Practical tools and strategies to support neurodivergent students in developing executive functioning skills.",
+        bio: "Dunja: K German Teacher. Katharina: 1st Grade German Teacher. Fatima: Elementary French Learning Specialist."
+      },
+      {
+        slot: "Session 2: 1:30 PM - 2:00 PM",
+        id: "s2_2",
+        title: "Agency, action and engagement",
+        presenter: "Hala Hajj Sleiman",
+        room: "Room 212",
+        summary: "A continuation/alternate session on student ownership and engagement.",
+        bio: "Hala is a 4th Grade English Teacher from Lebanon with 9+ years international education experience."
+      },
+      {
+        slot: "Session 2: 1:30 PM - 2:00 PM",
+        id: "s2_3",
+        title: "Enseigner la lecture (Teaching Reading)",
+        presenter: "Melanie Laporte & Janine Batal-Hakim",
+        room: "Room 235",
+        summary: "Strategies for teaching reading in early bilingual settings.",
+        bio: "Melanie and Janine bring decades of combined experience in early childhood language acquisition."
+      },
+      {
+        slot: "Session 2: 1:30 PM - 2:00 PM",
+        id: "s2_4",
+        title: "Creating video using Adobe Express",
+        presenter: "Elisabeth Lepert",
+        room: "Room 213",
+        summary: "Showcasing how students (3rd grade+) can create videos by recording voices, adding pictures, music, and sound effects.",
+        bio: "Technology and media specialist."
+      },
+      {
+        slot: "Session 2: 1:30 PM - 2:00 PM",
+        id: "s2_5",
+        title: "CIRC PreK: Making Learning Visible",
+        presenter: "Vivian",
+        room: "Room 214",
+        summary: "Sharing photos of learning environments and introducing the four elements of pedagogical documentation.",
+        bio: "PreK educator focusing on documentation."
+      },
+      // --- Session 3 ---
+      {
+        slot: "Session 3: 2:00 PM - 2:30 PM",
+        id: "s3_1",
+        title: "AFZ EPS a L'ecole primaire",
+        presenter: "James Christian",
+        room: "TBD",
+        summary: "Physical education strategies for primary school.",
+        bio: ""
+      },
+      {
+        slot: "Session 3: 2:00 PM - 2:30 PM",
+        id: "s3_2",
+        title: "Executive Funktion Strategies",
+        presenter: "Katharina Ulmer",
+        room: "TBD",
+        summary: "Deep dive into executive function strategies for the classroom.",
+        bio: "1st Grade German Teacher."
+      },
+      {
+        slot: "Session 3: 2:00 PM - 2:30 PM",
+        id: "s3_3",
+        title: "Emotionally-Intelligent Classroom using SEL",
+        presenter: "Gamila",
+        room: "TBD",
+        summary: "Developing emotional intelligence in educators and students to build restorative communities.",
+        bio: ""
+      },
+      {
+        slot: "Session 3: 2:00 PM - 2:30 PM",
+        id: "s3_4",
+        title: "CIRC Elementary: Learning Spaces",
+        presenter: "Yihui Chen",
+        room: "TBD",
+        summary: "Sharing photos from La Scuola International School to explore Reggio-inspired environments.",
+        bio: ""
+      },
+      {
+        slot: "Session 3: 2:00 PM - 2:30 PM",
+        id: "s3_5",
+        title: "Youcubed Math",
+        presenter: "Ya-Ching Chang & Claudia Gruber",
+        room: "TBD",
+        summary: "Key takeaways from Stanford Youcubed workshop with hands-on teaching ideas for mathematical thinking.",
+        bio: ""
+      },
+      // --- Session 4 ---
+      {
+        slot: "Session 4: 2:30 PM - 3:00 PM",
+        id: "s4_1",
+        title: "Create podcast using Adobe podcast",
+        presenter: "Elisabeth Lepert",
+        room: "TBD",
+        summary: "How students starting in 3rd grade can create podcasts and audiograms easily.",
+        bio: ""
+      },
+      {
+        slot: "Session 4: 2:30 PM - 3:00 PM",
+        id: "s4_2",
+        title: "Creating a Mini Atelier",
+        presenter: "Cecile",
+        room: "TBD",
+        summary: "Designing and implementing a mini atelier in the classroom to support creativity and inquiry.",
+        bio: ""
+      },
+      {
+        slot: "Session 4: 2:30 PM - 3:00 PM",
+        id: "s4_3",
+        title: "Teaching Phonics to Students with Dyslexia",
+        presenter: "Kathryn Dean",
+        room: "TBD",
+        summary: "Strategies for English K-2 teachers during phonics lessons for all students.",
+        bio: ""
+      },
+      {
+        slot: "Session 4: 2:30 PM - 3:00 PM",
+        id: "s4_4",
+        title: "AI in the classroom",
+        presenter: "Timothy Hopkins",
+        room: "TBD",
+        summary: "Exploring the uses of Artificial Intelligence tools in daily teaching practices.",
+        bio: ""
+      },
+      {
+        slot: "Session 4: 2:30 PM - 3:00 PM",
+        id: "s4_5",
+        title: "Youcubed Math (Repeat)",
+        presenter: "Ya-Ching Chang & Claudia Gruber",
+        room: "TBD",
+        summary: "Key takeaways from Stanford Youcubed workshop with hands-on teaching ideas.",
+        bio: ""
+      },
+      // --- Happy Hour ---
+      {
+        slot: "Session 5: 3:00 PM",
+        id: "s5_1",
+        title: "Happy Hour! 🥂",
+        presenter: "Everyone",
+        room: "MPR",
+        summary: "Time to relax, mingle, and celebrate a great day of learning.",
+        bio: ""
+      }
+    ];
+
+    // --- Application Logic ---
+    let currentUser = "";
+    let userSchedule = {}; // Stores { "Slot Name": "Session ID" }
+
+    function login() {
+      const email = document.getElementById('email-input').value;
+      if (!email || !email.includes('@')) {
+        alert("Please enter a valid school email address.");
+        return;
+      }
+      currentUser = email.toLowerCase();
+      
+      // Load saved schedule from LocalStorage if it exists
+      const saved = localStorage.getItem('pd_palooza_' + currentUser);
+      if (saved) {
+        userSchedule = JSON.parse(saved);
+      } else {
+        userSchedule = {};
+      }
+
+      document.getElementById('login-screen').classList.add('hidden');
+      document.getElementById('app-screen').classList.remove('hidden');
+      document.getElementById('welcome-text').innerText = "Welcome, " + currentUser.split('@')[0] + "!";
+      
+      renderCatalog();
+      renderSchedule();
+    }
+
+    function toggleBio(id) {
+      const bioDiv = document.getElementById('bio-' + id);
+      if (bioDiv.style.display === "block") {
+        bioDiv.style.display = "none";
+      } else {
+        bioDiv.style.display = "block";
+      }
+    }
+
+    function selectSession(slot, sessionId) {
+      userSchedule[slot] = sessionId;
+      localStorage.setItem('pd_palooza_' + currentUser, JSON.stringify(userSchedule));
+      
+      // Confetti!
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#0077C8', '#78BE20', '#FFFFFF']
+      });
+
+      renderCatalog();
+      renderSchedule();
+    }
+
+    function removeSession(slot) {
+      delete userSchedule[slot];
+      localStorage.setItem('pd_palooza_' + currentUser, JSON.stringify(userSchedule));
+      renderCatalog();
+      renderSchedule();
+    }
+
+    function renderCatalog() {
+      const container = document.getElementById('catalog-content');
+      container.innerHTML = "";
+
+      // Group sessions by slot
+      const slots = [...new Set(sessionsData.map(s => s.slot))];
+
+      slots.forEach(slot => {
+        const header = document.createElement('div');
+        header.className = 'time-slot-header';
+        header.innerText = slot;
+        container.appendChild(header);
+
+        const sessionsInSlot = sessionsData.filter(s => s.slot === slot);
+        
+        sessionsInSlot.forEach(session => {
+          const isSelected = userSchedule[slot] === session.id;
+          const isAnotherSelectedInSlot = userSchedule[slot] && !isSelected;
+          
+          let buttonHtml = '';
+          if (slot === "Session 5: 3:00 PM") {
+            buttonHtml = `<div class="status-badge">Required Fun!</div>`;
+          } else if (isSelected) {
+            buttonHtml = `<button class="btn remove-btn" onclick="removeSession('${slot}')">Cancel Selection</button>`;
+          } else {
+            buttonHtml = `<button class="btn" onclick="selectSession('${slot}', '${session.id}')" ${isAnotherSelectedInSlot ? 'style="background-color:#ccc; color:#666;"' : ''}>
+              ${isAnotherSelectedInSlot ? 'Swap to this Session' : 'Sign Up'}
+            </button>`;
+          }
+
+          let bioHtml = '';
+          if (session.bio) {
+            bioHtml = `
+              <div class="bio-toggle" onclick="toggleBio('${session.id}')">View Presenter Bio</div>
+              <div class="bio-content" id="bio-${session.id}">${session.bio}</div>
+            `;
+          }
+
+          const card = document.createElement('div');
+          card.className = 'card';
+          if (isSelected) card.style.borderLeftColor = "#0077C8"; // Blue if selected
+          
+          card.innerHTML = `
+            ${isSelected ? '<div class="status-badge">✓ You are registered</div>' : ''}
+            <h3>${session.title}</h3>
+            <div class="presenter">👤 ${session.presenter}</div>
+            <div class="room">📍 ${session.room}</div>
+            <p>${session.summary}</p>
+            ${bioHtml}
+            ${buttonHtml}
+          `;
+          container.appendChild(card);
+        });
+      });
+    }
+
+    function renderSchedule() {
+      const container = document.getElementById('schedule-content');
+      container.innerHTML = "";
+
+      const slots = [...new Set(sessionsData.map(s => s.slot))];
+      let hasSessions = false;
+
+      slots.forEach(slot => {
+        const header = document.createElement('div');
+        header.className = 'time-slot-header';
+        header.innerText = slot;
+        container.appendChild(header);
+
+        if (slot === "Session 5: 3:00 PM") {
+           container.innerHTML += `
+            <div class="card" style="border-left-color: var(--primary-blue)">
+              <h3>Happy Hour! 🥂</h3>
+              <div class="room">📍 MPR</div>
+              <p>Time to relax, mingle, and celebrate a great day of learning.</p>
+            </div>`;
+           hasSessions = true;
+           return;
+        }
+
+        const selectedId = userSchedule[slot];
+        if (selectedId) {
+          hasSessions = true;
+          const session = sessionsData.find(s => s.id === selectedId);
+          container.innerHTML += `
+            <div class="card" style="border-left-color: var(--primary-blue)">
+              <h3>${session.title}</h3>
+              <div class="presenter">👤 ${session.presenter}</div>
+              <div class="room">📍 ${session.room}</div>
+              <button class="btn remove-btn" onclick="removeSession('${slot}')">Remove from Schedule</button>
+            </div>
+          `;
+        } else {
+           container.innerHTML += `<p style="margin-bottom: 20px; font-style: italic; color: #888;">No session selected yet.</p>`;
+        }
+      });
+    }
+
+    function switchTab(tab) {
+      document.getElementById('nav-catalog').classList.remove('active');
+      document.getElementById('nav-schedule').classList.remove('active');
+      document.getElementById('catalog-view').classList.add('hidden');
+      document.getElementById('schedule-view').classList.add('hidden');
+
+      if (tab === 'catalog') {
+        document.getElementById('nav-catalog').classList.add('active');
+        document.getElementById('catalog-view').classList.remove('hidden');
+      } else if (tab === 'schedule') {
+        document.getElementById('nav-schedule').classList.add('active');
+        document.getElementById('schedule-view').classList.remove('hidden');
+      }
+      
+      window.scrollTo(0, 0); // Scroll to top on tab switch
+    }
+  </script>
+</body>
+</html>
