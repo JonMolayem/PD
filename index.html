@@ -16,86 +16,58 @@
       --white: #FFFFFF;
       --text-dark: #333333;
       --gray: #F4F4F4;
+      /* Time Slot Colors */
+      --color-s1: #0077C8; /* Blue */
+      --color-s2: #8E44AD; /* Purple */
+      --color-s3: #E67E22; /* Orange */
+      --color-s4: #E74C3C; /* Red */
+      --color-s5: #78BE20; /* Green */
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Nunito', sans-serif; }
-    
     body { background-color: var(--light-blue); color: var(--text-dark); padding-bottom: 70px; }
 
-    /* Header */
     header {
       background: linear-gradient(135deg, var(--primary-blue), var(--primary-green));
-      color: var(--white);
-      text-align: center;
-      padding: 2rem 1rem;
-      border-bottom-left-radius: 20px;
-      border-bottom-right-radius: 20px;
+      color: var(--white); text-align: center; padding: 2rem 1rem;
+      border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
-    header h1 { font-weight: 900; font-size: 2rem; letter-spacing: 1px; }
+    header h1 { font-weight: 900; font-size: 2rem; }
     header p { font-size: 1rem; opacity: 0.9; margin-top: 5px; }
 
-    /* Containers */
     .container { max-width: 600px; margin: 0 auto; padding: 1.5rem 1rem; }
     .hidden { display: none !important; }
 
-    /* Login Screen */
     #login-screen { text-align: center; margin-top: 20vh; }
-    .login-box {
-      background: var(--white); padding: 2rem; border-radius: 15px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-    }
-    input[type="email"] {
-      width: 100%; padding: 12px; margin: 15px 0; border: 2px solid var(--primary-blue);
-      border-radius: 8px; font-size: 1rem; outline: none;
-    }
-    .btn {
-      background-color: var(--primary-green); color: white; border: none;
-      padding: 12px 20px; font-size: 1.1rem; font-weight: bold; border-radius: 8px;
-      cursor: pointer; width: 100%; transition: transform 0.1s, background 0.2s;
-    }
+    .login-box { background: var(--white); padding: 2rem; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+    input[type="email"] { width: 100%; padding: 12px; margin: 15px 0; border: 2px solid var(--primary-blue); border-radius: 8px; font-size: 1rem; outline: none; }
+    
+    .btn { background-color: var(--primary-green); color: white; border: none; padding: 12px 20px; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; transition: transform 0.1s; margin-top: 10px;}
     .btn:active { transform: scale(0.95); }
-    .btn:hover { background-color: var(--dark-green); }
     .btn.remove-btn { background-color: #ff4d4d; }
 
-    /* Time Slot Headers */
-    .time-slot-header {
-      background-color: var(--primary-blue); color: white; padding: 10px 15px;
-      border-radius: 8px; margin: 20px 0 10px 0; font-weight: bold; font-size: 1.2rem;
-    }
-
-    /* Cards */
-    .card {
-      background: var(--white); border-radius: 12px; padding: 15px; margin-bottom: 15px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.05); border-left: 5px solid var(--primary-green);
-      transition: transform 0.2s;
-    }
-    .card h3 { color: var(--primary-blue); margin-bottom: 5px; font-size: 1.1rem; }
+    .time-slot-header { color: white; padding: 10px 15px; border-radius: 8px; margin: 20px 0 10px 0; font-weight: bold; font-size: 1.2rem; }
+    
+    .card { background: var(--white); border-radius: 12px; padding: 15px; margin-bottom: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); border-left: 6px solid var(--gray); transition: transform 0.2s; }
+    .card h3 { color: var(--text-dark); margin-bottom: 5px; font-size: 1.1rem; }
     .card .presenter { font-weight: bold; color: var(--dark-green); font-size: 0.9rem; margin-bottom: 5px; }
     .card .room { font-size: 0.85rem; color: #666; margin-bottom: 10px; font-style: italic; }
     .card p { font-size: 0.9rem; line-height: 1.4; margin-bottom: 10px; }
     
-    /* Collapsible Bios */
-    .bio-content { display: none; font-size: 0.85rem; background: var(--gray); padding: 10px; border-radius: 6px; margin-bottom: 10px;}
+    .bio-content { display: none; font-size: 0.85rem; background: var(--gray); padding: 10px; border-radius: 6px; margin-bottom: 10px; white-space: pre-wrap;}
     .bio-toggle { color: var(--primary-blue); font-size: 0.85rem; cursor: pointer; text-decoration: underline; margin-bottom: 10px; display: inline-block; }
 
-    /* Bottom Nav */
-    nav {
-      position: fixed; bottom: 0; left: 0; width: 100%; background: var(--white);
-      display: flex; justify-content: space-around; padding: 10px 0;
-      box-shadow: 0 -2px 10px rgba(0,0,0,0.1); z-index: 1000;
-    }
-    .nav-item {
-      text-align: center; color: #888; text-decoration: none; font-size: 0.9rem;
-      font-weight: bold; cursor: pointer; flex: 1; padding: 10px 0; transition: color 0.2s;
-    }
+    /* Presenter Roster Styles */
+    .roster-list { display: none; background: #f9f9f9; padding: 10px; border-radius: 8px; margin-top: 10px; font-size: 0.9rem; border: 1px solid #ddd;}
+    .roster-list li { margin-left: 15px; margin-bottom: 5px;}
+    .roster-toggle { cursor: pointer; background: var(--light-blue); padding: 10px; border-radius: 8px; font-weight: bold; color: var(--primary-blue); margin-bottom: 10px; border: 1px solid #bce0d8;}
+
+    nav { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--white); display: flex; justify-content: space-around; padding: 10px 0; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); z-index: 1000; }
+    .nav-item { text-align: center; color: #888; text-decoration: none; font-size: 0.8rem; font-weight: bold; cursor: pointer; flex: 1; padding: 10px 0; }
     .nav-item.active { color: var(--primary-blue); border-bottom: 3px solid var(--primary-green); }
     
-    /* Status Badge */
-    .status-badge {
-      display: inline-block; padding: 5px 10px; border-radius: 20px; font-size: 0.8rem;
-      font-weight: bold; margin-bottom: 10px; background: var(--light-blue); color: var(--primary-blue);
-    }
+    .status-badge { display: inline-block; padding: 5px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-bottom: 10px; background: var(--light-blue); color: var(--primary-blue); }
   </style>
 </head>
 <body>
@@ -116,7 +88,10 @@
     </header>
 
     <div class="container" id="catalog-view">
-      <p style="text-align: center; margin-bottom: 15px; font-weight: bold;" id="welcome-text"></p>
+      <div style="background: var(--white); padding: 15px; border-radius: 8px; margin-bottom: 15px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+        <p style="font-weight: bold; color: var(--primary-blue); font-size: 1.1rem;" id="welcome-text"></p>
+        <p style="font-size: 0.9rem; margin-top: 5px;">Please select <strong>one</strong> PD session for each of the 4 time slots below.</p>
+      </div>
       <div id="catalog-content"></div>
     </div>
 
@@ -125,214 +100,55 @@
       <div id="schedule-content"></div>
     </div>
 
+    <div class="container hidden" id="presenters-view">
+      <h2 style="color: var(--primary-blue); margin-bottom: 15px; text-align: center;">Session Rosters</h2>
+      <p style="text-align: center; font-size: 0.85rem; color: #666; margin-bottom: 20px;">Presenters: Click on your session to see the emails of teachers who have registered.</p>
+      <div id="presenters-content"></div>
+    </div>
+
     <nav>
       <div class="nav-item active" id="nav-catalog" onclick="switchTab('catalog')">Sessions</div>
-      <div class="nav-item" id="nav-schedule" onclick="switchTab('schedule')">My Sessions</div>
+      <div class="nav-item" id="nav-schedule" onclick="switchTab('schedule')">My Schedule</div>
+      <div class="nav-item" id="nav-presenters" onclick="switchTab('presenters')">Presenters</div>
       <a class="nav-item" href="https://padlet.com/jonmolayem/intl-pd-palooza-znb82labpa6bcx2h" target="_blank" style="display: block;">Padlet ↗</a>
     </nav>
   </div>
 
   <script>
-    // --- The Data ---
     const sessionsData = [
-      {
-        slot: "Session 1: 1:00 PM - 1:30 PM",
-        id: "s1_1",
-        title: "Neurodivergence, emotional regulation, SEL",
-        presenter: "Bhavane Nair",
-        room: "4th and 5th grade classrooms",
-        summary: "Discover the 'why' behind student behavior by learning how dysregulation shows up in the classroom and how thoughtfully designed regulation stations can support different needs.",
-        bio: "Bio information pending."
-      },
-      {
-        slot: "Session 1: 1:00 PM - 1:30 PM",
-        id: "s1_2",
-        title: "Agency, Action, and Engagement",
-        presenter: "Guillaume Tapon",
-        room: "Room 237",
-        summary: "Discover how to move from simple participation to inspired student ownership using practical frameworks like the 'Response-o-meter' and 'Why Chain'.",
-        bio: "Guillaume is a 3rd Grade French Teacher. Born in Bordeaux, France, he holds a Master’s in Education and has taught in France and California. He enjoys nature, reading, and yoga."
-      },
-      {
-        slot: "Session 1: 1:00 PM - 1:30 PM",
-        id: "s1_3",
-        title: "Lire pour comprendre",
-        presenter: "Janine Batal-Hakim & Mélanie Laporte",
-        room: "Room 235",
-        summary: "Reading comprehension strategies for early learners.",
-        bio: "Janine: 1st Grade French Teacher from Lebanon, Montessori certified. Melanie: Kindergarten French Teacher from Montreal with 20+ years experience."
-      },
-      {
-        slot: "Session 1: 1:00 PM - 1:30 PM",
-        id: "s1_4",
-        title: "Canva AI",
-        presenter: "Craig Miller & Nicole Frey",
-        room: "Room 212",
-        summary: "Learn how to utilize Canva AI tools in the classroom.",
-        bio: "Nicole is a 3rd Grade English Teacher returning from 16 years abroad. Craig is a 3rd Grade English Teacher from the UK with a strong background in educational technology."
-      },
-      {
-        slot: "Session 1: 1:00 PM - 1:30 PM",
-        id: "s1_5",
-        title: "CIRC workshop and school visit",
-        presenter: "Portia Yang",
-        room: "Room 213",
-        summary: "Sharing photos and Reggio-inspired strategies gathered from a visit to CIRC, focusing on the environment as the 'third teacher'.",
-        bio: "Portia is a 1st Grade Chinese Teacher born in Taiwan, passionate about the IB curriculum and independent learners."
-      },
+      // --- Session 1 ---
+      { slot: "Session 1: 1:00 PM - 1:30 PM", color: "var(--color-s1)", id: "s1_1", title: "Various topics (neurodivergence, emotional regulation, SEL development)", presenter: "Bhavane Nair", room: "4th and 5th grade classrooms", summary: "Discover the 'why' behind student behavior by learning how dysregulation shows up in the classroom and how thoughtfully designed regulation stations can support different needs. In this session, we'll also break down how to tell when a student needs a calming corner versus a movement based break so you can respond with strategies that truly work!", bio: "" },
+      { slot: "Session 1: 1:00 PM - 1:30 PM", color: "var(--color-s1)", id: "s1_2", title: "Agency, Action, and Engagement", presenter: "Guillaume Tapon", room: "237", summary: "Discover how to move from simple participation to inspired student ownership using practical frameworks like the 'Response-o-meter' and 'Why Chain' thinking routines. We will explore how to nurture 'Active Hope' and help students transfer their understanding into meaningful, real-world action through various types of power and connectedness. You will walk away with a toolkit of visual strategies to increase student motivation and lead them toward becoming empowered change-makers.", bio: "Guillaume Tapon- 3rd Grade French Teacher\nGuillaume was born in Bordeaux, France. He holds a Master’s in Education and taught in France for five years before moving to California. Now in his eighth year at INTL, Guillaume is excited to bring joy and curiosity into his students’ learning journeys. When he is not teaching, he enjoys spending time in nature, reading, and practicing yoga." },
+      { slot: "Session 1: 1:00 PM - 1:30 PM", color: "var(--color-s1)", id: "s1_3", title: "Lire pour comprendre", presenter: "Janine Batal-Hakim with Mélanie Laporte", room: "235", summary: "", bio: "Janine Batal-Hakim - 1st Grade French Teacher\nJanine was born in Beirut, Lebanon. She holds a Bachelor’s degree in Education and a Master’s degree in Science of Education and Psychology. She is Montessori certified and specializes in multilingual education. She has been teaching at INTL since 2007. Prior to that she has taught French and Math in Kindergarten through 5th grade in several schools both in the US and abroad. Janine has a love for teaching and seeks excellence in her interaction with students, especially in a bilingual setting. She enjoys hiking, yoga, traveling, and exploring new cultures.\n\nMelanie Laporte- Kindergarten French Teacher\nMelanie is from Montreal, Canada. Her educational background includes a Bachelor of Arts in Psychology and a B.Ed in Preschool and Elementary teaching. She has over 20+ years of teaching experience in public and private schools, including 9 years in the IB PYP program. Melanie has been a member of the INTL community since 2004. She has a passion for teaching our youngest learners by instilling in each child a love of learning. In her spare time, she enjoys traveling, hiking, and reading. She is looking forward to another exciting learning journey rich in discoveries with her upcoming Kindergarteners!" },
+      { slot: "Session 1: 1:00 PM - 1:30 PM", color: "var(--color-s1)", id: "s1_4", title: "Canva AI", presenter: "Craig and Nicole", room: "212", summary: "", bio: "Nicole Frey- 3rd Grade English Teacher\nNicole Frey is a third culture kid who is thrilled to be returning to the U.S. after 16 years abroad, during which she taught across Europe and Asia. She holds a PGCE in Primary Education from the University of Exeter and has a special passion for language learning and supporting multilingual learners. Nicole is also currently pursuing a Master’s in Teaching English Learners. Outside the classroom, she loves exploring new restaurants, spending time outdoors, and soaking up cultural events. She’s looking forward to an exciting year of learning and growing together!\n\nCraig Miller- 3rd Grade English Teacher\nCraig Miller was born in Stratford-upon-Avon UK, growing up in the storytelling heartland of Shakespeare’s England. He later studied at the University of Worcester, where he also began his teaching career in the primary school next door. Since 2009, he has worked in both state and independent schools, most recently at RGS Springfield, the preparatory school of one of the oldest schools in the UK. A year and a half ago, Craig moved to Birmingham in search of new friendships and a fresh sense of community, drawn by the city’s warmth, creativity, and rich cultural life. Craig holds a degree in IT for Education and Training earned at Worcester University, along with a PGCE, and has a strong background in educational technology. He helped lead his former school to recognition as an Apple Regional Training Centre, and is a certified Apple Teacher, Showbie Certified Educator, and Seesaw Ambassador. While new to the International Baccalaureate, he is excited to bring his experience in inquiry-led, inclusive learning to the Primary Years Programme. Outside the classroom, Craig enjoys bouldering and climbing, playing rugby, volunteering, playing board games with friends, and participating in community events, including performing in the opening ceremony of the Birmingham 2022 Commonwealth Games. He is thrilled to be joining the INTL community and looks forward to learning about other cultures, sharing his own, and supporting a diverse range of learners. Craig is especially excited to learn alongside his pupils, fostering curiosity, empathy, and global awareness in the classroom. This next step marks a continuation of his own journey — from the storytelling soul of Stratford, through the industrious spirit of Worcester and Birmingham, to the innovative heart of the Information Age in Silicon Valley." },
+      { slot: "Session 1: 1:00 PM - 1:30 PM", color: "var(--color-s1)", id: "s1_5", title: "California International Reggio Center (CIRC) workshop and school visit", presenter: "Portia Yang", room: "213", summary: "In this session, I will share some photos and Reggio-inspired strategies gathered from a visit to CIRC, focusing on the concept of the environment as the 'third teacher'.", bio: "Portia Chang-Yang- 1st Grade Chinese Teacher\nPortia was born in Taiwan and came to the U.S. to earn her MSE in elementary education. She holds a California early childhood teaching credential and a Montessori certificate. She has taught lower grades in Taiwan and the Bay Area, including Montessori, Chinese immersion, and INTL programs. Passionate about the IB curriculum, Portia enjoys helping students become independent learners and global citizens. Outside of teaching, she loves gardening, cooking, and spending time with family. She’s excited for another great year at INTL with new students and colleagues!" },
+      
       // --- Session 2 ---
-      {
-        slot: "Session 2: 1:30 PM - 2:00 PM",
-        id: "s2_1",
-        title: "Supporting Neurodiverse Learners",
-        presenter: "Dunja Zaun, Katharina Ulmer & Fatima Maslic",
-        room: "Room 237",
-        summary: "Practical tools and strategies to support neurodivergent students in developing executive functioning skills.",
-        bio: "Dunja: K German Teacher. Katharina: 1st Grade German Teacher. Fatima: Elementary French Learning Specialist."
-      },
-      {
-        slot: "Session 2: 1:30 PM - 2:00 PM",
-        id: "s2_2",
-        title: "Agency, action and engagement",
-        presenter: "Hala Hajj Sleiman",
-        room: "Room 212",
-        summary: "A continuation/alternate session on student ownership and engagement.",
-        bio: "Hala is a 4th Grade English Teacher from Lebanon with 9+ years international education experience."
-      },
-      {
-        slot: "Session 2: 1:30 PM - 2:00 PM",
-        id: "s2_3",
-        title: "Enseigner la lecture (Teaching Reading)",
-        presenter: "Melanie Laporte & Janine Batal-Hakim",
-        room: "Room 235",
-        summary: "Strategies for teaching reading in early bilingual settings.",
-        bio: "Melanie and Janine bring decades of combined experience in early childhood language acquisition."
-      },
-      {
-        slot: "Session 2: 1:30 PM - 2:00 PM",
-        id: "s2_4",
-        title: "Creating video using Adobe Express",
-        presenter: "Elisabeth Lepert",
-        room: "Room 213",
-        summary: "Showcasing how students (3rd grade+) can create videos by recording voices, adding pictures, music, and sound effects.",
-        bio: "Technology and media specialist."
-      },
-      {
-        slot: "Session 2: 1:30 PM - 2:00 PM",
-        id: "s2_5",
-        title: "CIRC PreK: Making Learning Visible",
-        presenter: "Vivian",
-        room: "Room 214",
-        summary: "Sharing photos of learning environments and introducing the four elements of pedagogical documentation.",
-        bio: "PreK educator focusing on documentation."
-      },
+      { slot: "Session 2: 1:30 PM - 2:00 PM", color: "var(--color-s2)", id: "s2_1", title: "Supporting Neurodiverse Learners in Grades TK–5 Practical tools", presenter: "Dunja Zaun & Katharina Ulmer & Fatima Maslic", room: "237", summary: "In this session, we will share practical tools and strategies that can be used in the classroom to support neurodivergent students in developing executive functioning skills and continuing their learning. We will focus, among other things, on classroom layout and visual supports, organizational skills, attention, and emotional regulation.", bio: "Dunja Zaun- Kindergarten German Teacher\nDunja is from Thuringia/ Germany. She lived in Berlin for many years before she moved with her engineer husband to Silicon Valley in 2001. After working with young children by volunteering in the Children’s Department of the Public Library in Mountain View and “Sunday Friends”, an organization that works with families in economically challenged situations, she decided to go back to school and received a teaching certificate in Early Childhood education including classes in language development and in creative and artistic child development. She worked then for GAIS and Alto International School and is now a team player in the German program at INTL. She looks forward to working with curious, creative and enthusiastic children. Dunja loves cooking and eating, bicycling and hiking, reading and sewing.\n\nKatharina Ulmer - 1st Grade German Teacher\nKatharina Ulmer was born and raised in Germany. She graduated from the Academy of Social Work as a State Certified Educator and has 12 years of experience in that field. Katharina has worked with children of all ages in a foster home in Germany before joining INTL in 2018. She has taught the International Baccalaureate curriculum across Preschool, Kindergarten, First and Second Grade. In her free time, she enjoys singing, traveling, kiting, diving, and practicing yoga. Katharina is thrilled to join the elementary school team as the German teacher for first and second grades.\n\nFatima Maslic - Elementary French Learning Specialist and Program Instructor\nFatima MASLIC is an elementary school teacher with five years of classroom experience in Paris, where she cultivated a dynamic and inclusive learning environment for young students, encouraging collaborative work and developing both subject-specific and cross-disciplinary skills. She holds a primary school teaching diploma and a bachelor’s degree in German studies, reflecting her strong interest in languages and cultural exchange. A year ago, she relocated to California, where she has embraced new professional opportunities and continues to bring enthusiasm, creativity, and a global perspective to her teaching practice. Outside of her professional life, Fatima enjoys a rich blend of hobbies and interests that keep her energized and inspired—whether she’s playing tennis, hiking, exploring new destinations, trying out new baking recipes, or enjoying meaningful moments with her family." },
+      { slot: "Session 2: 1:30 PM - 2:00 PM", color: "var(--color-s2)", id: "s2_2", title: "Agency, action and engagement", presenter: "Hala Hajj Sleiman", room: "212", summary: "", bio: "Hala Sleiman- 4th Grade English Teacher\nHala was born in Lebanon. She holds a BA in Elementary Education with an emphasis in Math and Science. With over nine years of experience in international education and the IB, she has worked as a PYP homeroom teacher in Lebanon & Turkey and spent the past four years serving as an IB PYP Coordinator at an international school in Istanbul. Hala also serves as an Educational consultant for NGOs across Lebanon and the MENA region, supporting curriculum development and teacher training. Outside the classroom, she loves her morning coffee, enjoys surfing and traveling, and finds joy in spending time in nature and with close friends. Hala is excited to be part of the INTL community and can’t wait for the new adventure ahead!" },
+      { slot: "Session 2: 1:30 PM - 2:00 PM", color: "var(--color-s2)", id: "s2_3", title: "Enseigner la lecture (Teaching Reading)", presenter: "Melanie Laporte & Janine Batal-Hakim", room: "235", summary: "", bio: "Janine Batal-Hakim - 1st Grade French Teacher\nJanine was born in Beirut, Lebanon. She holds a Bachelor’s degree in Education and a Master’s degree in Science of Education and Psychology. She is Montessori certified and specializes in multilingual education. She has been teaching at INTL since 2007. Prior to that she has taught French and Math in Kindergarten through 5th grade in several schools both in the US and abroad. Janine has a love for teaching and seeks excellence in her interaction with students, especially in a bilingual setting. She enjoys hiking, yoga, traveling, and exploring new cultures.\n\nMelanie Laporte- Kindergarten French Teacher\nMelanie is from Montreal, Canada. Her educational background includes a Bachelor of Arts in Psychology and a B.Ed in Preschool and Elementary teaching. She has over 20+ years of teaching experience in public and private schools, including 9 years in the IB PYP program. Melanie has been a member of the INTL community since 2004. She has a passion for teaching our youngest learners by instilling in each child a love of learning. In her spare time, she enjoys traveling, hiking, and reading. She is looking forward to another exciting learning journey rich in discoveries with her upcoming Kindergarteners!" },
+      { slot: "Session 2: 1:30 PM - 2:00 PM", color: "var(--color-s2)", id: "s2_4", title: "Creating video using Adobe Express", presenter: "Elisabeth Lepert", room: "213", summary: "In this session, I will show you how students starting in 3rd grade can create by recording their voices, adding picutres, adding music, sound effects.", bio: "" },
+      { slot: "Session 2: 1:30 PM - 2:00 PM", color: "var(--color-s2)", id: "s2_5", title: "CIRC PreK presents: Making the Learning Visible (Documentation)", presenter: "Vivian", room: "214", summary: "I’d like to share a few photos to give you a sense of their learning environment. I will also briefly introduce the four elements of pedagogical documentation shown in their slides.", bio: "" },
+
       // --- Session 3 ---
-      {
-        slot: "Session 3: 2:00 PM - 2:30 PM",
-        id: "s3_1",
-        title: "AFZ EPS a L'ecole primaire",
-        presenter: "James Christian",
-        room: "TBD",
-        summary: "Physical education strategies for primary school.",
-        bio: ""
-      },
-      {
-        slot: "Session 3: 2:00 PM - 2:30 PM",
-        id: "s3_2",
-        title: "Executive Funktion Strategies",
-        presenter: "Katharina Ulmer",
-        room: "TBD",
-        summary: "Deep dive into executive function strategies for the classroom.",
-        bio: "1st Grade German Teacher."
-      },
-      {
-        slot: "Session 3: 2:00 PM - 2:30 PM",
-        id: "s3_3",
-        title: "Emotionally-Intelligent Classroom using SEL",
-        presenter: "Gamila",
-        room: "TBD",
-        summary: "Developing emotional intelligence in educators and students to build restorative communities.",
-        bio: ""
-      },
-      {
-        slot: "Session 3: 2:00 PM - 2:30 PM",
-        id: "s3_4",
-        title: "CIRC Elementary: Learning Spaces",
-        presenter: "Yihui Chen",
-        room: "TBD",
-        summary: "Sharing photos from La Scuola International School to explore Reggio-inspired environments.",
-        bio: ""
-      },
-      {
-        slot: "Session 3: 2:00 PM - 2:30 PM",
-        id: "s3_5",
-        title: "Youcubed Math",
-        presenter: "Ya-Ching Chang & Claudia Gruber",
-        room: "TBD",
-        summary: "Key takeaways from Stanford Youcubed workshop with hands-on teaching ideas for mathematical thinking.",
-        bio: ""
-      },
+      { slot: "Session 3: 2:00 PM - 2:30 PM", color: "var(--color-s3)", id: "s3_1", title: "AFZ EPS a L'ecole primaire", presenter: "James Christian", room: "213", summary: "", bio: "James Christian- PE Teacher\nJames was born in Memphis, Tennessee and grew up in California. He developed an interest in wrestling and gymnastics in middle and high school. Structured physical movement was and is very important which led James to study dance and gymnastics at the College of San Mateo and Chabot Community College. After nearly 20 years of providing gymnastics classes to INTL’s enrichment program, he became a member of the faculty as an elementary school PE teacher in 2019 and is PYP certified. James is passionate about passing on his love for and the importance of fitness to the students. He also feels that fitness for adults is important. His hobbies include playing electric bass, guitar, singing and recording music. James also enjoys riding his motorcycle." },
+      { slot: "Session 3: 2:00 PM - 2:30 PM", color: "var(--color-s3)", id: "s3_2", title: "Executive Funktion Strategies", presenter: "Katharina Ulmer", room: "214", summary: "", bio: "Katharina Ulmer - 1st Grade German Teacher\nKatharina Ulmer was born and raised in Germany. She graduated from the Academy of Social Work as a State Certified Educator and has 12 years of experience in that field. Katharina has worked with children of all ages in a foster home in Germany before joining INTL in 2018. She has taught the International Baccalaureate curriculum across Preschool, Kindergarten, First and Second Grade. In her free time, she enjoys singing, traveling, kiting, diving, and practicing yoga. Katharina is thrilled to join the elementary school team as the German teacher for first and second grades." },
+      { slot: "Session 3: 2:00 PM - 2:30 PM", color: "var(--color-s3)", id: "s3_3", title: "Developing Emotionally-Intelligent Classroom using SEL", presenter: "Gamila", room: "210", summary: "Emotional intelligene is the ability to identify and manage you emotions while understanding the emotions of those around you. Emotional intelligence consists of four domains: self-awareness, social awareness, self-management and relationship management. Schools that develop the emotional intelligence of educators and students help build the skills to foster restorative communities that prioritizes all relationships.", bio: "" },
+      { slot: "Session 3: 2:00 PM - 2:30 PM", color: "var(--color-s3)", id: "s3_4", title: "CIRC Elementary presents: Learning Spaces ~ From Passion to Practice", presenter: "Yihui Chen", room: "211", summary: "In this session, I will share photos that I took at La Scuola International School, a Riggio-inspired school. I visited both their San Francisco campus and their Early Years campus in the Bay Area. I hope these photos will give you a sense of the school environment and approach.", bio: "Yihui Chen- Kindergarten Chinese Teacher\nYihui is from Taiwan. She holds a BA in Elementary Education from the Teacher's College in Hualien, Taiwan, and an MA in Educational Foundations from the University of Cincinnati in Ohio. Yihui taught lower elementary grades in Taiwan for five years before joining INTL in 2008. Since then, she has spent most of her time teaching in the Kindergarten program. She enjoys walking in nature, spending time with her family, and traveling. Yihui values her work, loves working with young children, and enjoys collaborating with her colleagues. She looks forward to the new school year." },
+      { slot: "Session 3: 2:00 PM - 2:30 PM", color: "var(--color-s3)", id: "s3_5", title: "Youcubed Math", presenter: "Ya-Ching Chang & Claudia Gruber", room: "237", summary: "In this session, we will share key takeaways from the Stanford Youcubed math workshop along with practical, hands-on teaching ideas that you can apply directly in your classroom. The session will focus on engaging strategies that support students’ mathematical thinking and participation.", bio: "Ya-Ching Chang - Chinese Academic Dean\nYa-Ching, a native of Taiwan, holds a master’s degree in childhood multicultural education from SUNY Geneseo. With 16 years of teaching experience, she has held diverse roles including instructional leader for STARTALK, mentor for student teachers from the University of Minnesota, presenter at the National Chinese Language Conference (NCLC), and committee member in the Early Childhood Chinese Immersion Forum (ECCIF). Since 2021, Ya-Ching has served as the Chinese Program Academic Dean at INTL. In her spare time, she enjoys reading, traveling, and spending time with her family.\n\nClaudia Gruber - German Academic Dean\nClaudia grew up in the German-speaking part of Switzerland, where she also received her teaching credentials. She has taught in Switzerland and California (INTL) for 20 years in grades 1-6, most of them in PYP and bilingual programs. Throughout her career, she has attended various workshops on PYP, Math, German immersion and German as a second language. Claudia is passionate about education and is looking forward to working with all the students, parents, and teachers in the German program in her role as German Academic Dean and as the dedicated math teacher for grades 1 and 5. The diverse and multilingual community at INTL is an inspiring and enjoyable work environment for her. In her spare time, Claudia loves to travel, hike, practice yoga, or simply read a good book." },
+
       // --- Session 4 ---
-      {
-        slot: "Session 4: 2:30 PM - 3:00 PM",
-        id: "s4_1",
-        title: "Create podcast using Adobe podcast",
-        presenter: "Elisabeth Lepert",
-        room: "TBD",
-        summary: "How students starting in 3rd grade can create podcasts and audiograms easily.",
-        bio: ""
-      },
-      {
-        slot: "Session 4: 2:30 PM - 3:00 PM",
-        id: "s4_2",
-        title: "Creating a Mini Atelier",
-        presenter: "Cecile",
-        room: "TBD",
-        summary: "Designing and implementing a mini atelier in the classroom to support creativity and inquiry.",
-        bio: ""
-      },
-      {
-        slot: "Session 4: 2:30 PM - 3:00 PM",
-        id: "s4_3",
-        title: "Teaching Phonics to Students with Dyslexia",
-        presenter: "Kathryn Dean",
-        room: "TBD",
-        summary: "Strategies for English K-2 teachers during phonics lessons for all students.",
-        bio: ""
-      },
-      {
-        slot: "Session 4: 2:30 PM - 3:00 PM",
-        id: "s4_4",
-        title: "AI in the classroom",
-        presenter: "Timothy Hopkins",
-        room: "TBD",
-        summary: "Exploring the uses of Artificial Intelligence tools in daily teaching practices.",
-        bio: ""
-      },
-      {
-        slot: "Session 4: 2:30 PM - 3:00 PM",
-        id: "s4_5",
-        title: "Youcubed Math (Repeat)",
-        presenter: "Ya-Ching Chang & Claudia Gruber",
-        room: "TBD",
-        summary: "Key takeaways from Stanford Youcubed workshop with hands-on teaching ideas.",
-        bio: ""
-      },
+      { slot: "Session 4: 2:30 PM - 3:00 PM", color: "var(--color-s4)", id: "s4_1", title: "Create very easily podcast using Adobe podcast", presenter: "Elisabeth Lepert", room: "227", summary: "In this session, I will show you how students starting in 3rd grade can create podcast very simply with this tool. I will also show how to create audiogram for your class.", bio: "" },
+      { slot: "Session 4: 2:30 PM - 3:00 PM", color: "var(--color-s4)", id: "s4_2", title: "Creating a Mini Atelier in the Classroom: Bringing Reggio Inspiration into Daily Practice", presenter: "Cecile", room: "211", summary: "Through three mentoring sessions with a Reggio Emilia atelierista, I explored how to design and implement a “mini atelier” within a classroom environment. In this session, I will share the questions that guided my thinking, the practical changes I made to my space, and how these shifts are already supporting creativity, inquiry, and deeper engagement in the classroom.", bio: "" },
+      { slot: "Session 4: 2:30 PM - 3:00 PM", color: "var(--color-s4)", id: "s4_3", title: "Teaching Phonics to Students with Dyslexia", presenter: "Kathryn Dean", room: "213", summary: "In this session, I will share different strategies that English Kindergarten to 2nd grade teachers can use during their phonics lessons for all students.", bio: "Kathryn Dean- 2nd Grade English Teacher\nKathryn was born in Detroit and has a Bachelor of Science in Elementary Education. She has been teaching for over 5 years in international and PYP schools in Latvia and South Korea. In her free time, Kathryn enjoys traveling, painting, and hiking." },
+      { slot: "Session 4: 2:30 PM - 3:00 PM", color: "var(--color-s4)", id: "s4_4", title: "AI in the classroom", presenter: "Timothy Hopkins", room: "214", summary: "", bio: "Tim Hopkins- 2nd Grade English Teacher\nTim grew up near Palo Alto and holds a BA in anthropology and religious studies from Pitzer College, an MA in theology from Boston University, and an MA in teaching from Santa Clara University. With seven years of teaching experience across 2nd and 7th Grades some highlights of his career include piloting a new phonics program and onboarding new teachers. In his free time, he enjoys hiking and reading. Tim is excited to share his passion for examining the world with wonder." },
+
       // --- Happy Hour ---
-      {
-        slot: "Session 5: 3:00 PM",
-        id: "s5_1",
-        title: "Happy Hour! 🥂",
-        presenter: "Everyone",
-        room: "MPR",
-        summary: "Time to relax, mingle, and celebrate a great day of learning.",
-        bio: ""
-      }
+      { slot: "Session 5: 3:00 PM", color: "var(--color-s5)", id: "s5_1", title: "Happy Hour! 🥂", presenter: "Everyone", room: "MPR", summary: "Time to relax, mingle, and celebrate a great day of learning.", bio: "" }
     ];
 
-    // --- Application Logic ---
     let currentUser = "";
-    let userSchedule = {}; // Stores { "Slot Name": "Session ID" }
+    let userSchedule = {}; 
 
     function login() {
       const email = document.getElementById('email-input').value;
@@ -342,64 +158,86 @@
       }
       currentUser = email.toLowerCase();
       
-      // Load saved schedule from LocalStorage if it exists
-      const saved = localStorage.getItem('pd_palooza_' + currentUser);
-      if (saved) {
-        userSchedule = JSON.parse(saved);
-      } else {
-        userSchedule = {};
-      }
+      const saved = localStorage.getItem('pd_palooza_user_' + currentUser);
+      userSchedule = saved ? JSON.parse(saved) : {};
 
       document.getElementById('login-screen').classList.add('hidden');
       document.getElementById('app-screen').classList.remove('hidden');
-      document.getElementById('welcome-text').innerText = "Welcome, " + currentUser.split('@')[0] + "!";
+      
+      const name = currentUser.split('@')[0].charAt(0).toUpperCase() + currentUser.split('@')[0].slice(1);
+      document.getElementById('welcome-text').innerText = "Welcome " + name + "!";
       
       renderCatalog();
       renderSchedule();
+      renderPresenters();
     }
 
     function toggleBio(id) {
       const bioDiv = document.getElementById('bio-' + id);
-      if (bioDiv.style.display === "block") {
-        bioDiv.style.display = "none";
-      } else {
-        bioDiv.style.display = "block";
-      }
+      bioDiv.style.display = (bioDiv.style.display === "block") ? "none" : "block";
+    }
+
+    function toggleRoster(id) {
+      const rosterDiv = document.getElementById('roster-' + id);
+      rosterDiv.style.display = (rosterDiv.style.display === "block") ? "none" : "block";
     }
 
     function selectSession(slot, sessionId) {
+      // ERROR HANDLING: Check if they already picked something in this slot
+      if (userSchedule[slot] && userSchedule[slot] !== sessionId) {
+        alert("⚠️ You have already selected a session for this time slot. Please cancel your current selection first before choosing a new one.");
+        return;
+      }
+
       userSchedule[slot] = sessionId;
-      localStorage.setItem('pd_palooza_' + currentUser, JSON.stringify(userSchedule));
+      localStorage.setItem('pd_palooza_user_' + currentUser, JSON.stringify(userSchedule));
       
-      // Confetti!
-      confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0.6 },
-        colors: ['#0077C8', '#78BE20', '#FFFFFF']
-      });
+      confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#0077C8', '#78BE20', '#FFFFFF'] });
 
       renderCatalog();
       renderSchedule();
+      renderPresenters();
     }
 
     function removeSession(slot) {
       delete userSchedule[slot];
-      localStorage.setItem('pd_palooza_' + currentUser, JSON.stringify(userSchedule));
+      localStorage.setItem('pd_palooza_user_' + currentUser, JSON.stringify(userSchedule));
       renderCatalog();
       renderSchedule();
+      renderPresenters();
+    }
+
+    function getMockDatabase() {
+      // This builds a "database" of all users who have logged in ON THIS SPECIFIC BROWSER
+      let mockDb = {};
+      for(let i=0; i < localStorage.length; i++){
+          let key = localStorage.key(i);
+          if(key.startsWith('pd_palooza_user_')){
+              let email = key.replace('pd_palooza_user_', '');
+              let schedule = JSON.parse(localStorage.getItem(key));
+              for(let slot in schedule){
+                  let sId = schedule[slot];
+                  if(!mockDb[sId]) mockDb[sId] = [];
+                  mockDb[sId].push(email);
+              }
+          }
+      }
+      return mockDb;
     }
 
     function renderCatalog() {
       const container = document.getElementById('catalog-content');
       container.innerHTML = "";
 
-      // Group sessions by slot
       const slots = [...new Set(sessionsData.map(s => s.slot))];
 
       slots.forEach(slot => {
+        // Find the color for this slot
+        const slotColor = sessionsData.find(s => s.slot === slot).color;
+
         const header = document.createElement('div');
         header.className = 'time-slot-header';
+        header.style.backgroundColor = slotColor;
         header.innerText = slot;
         container.appendChild(header);
 
@@ -415,28 +253,29 @@
           } else if (isSelected) {
             buttonHtml = `<button class="btn remove-btn" onclick="removeSession('${slot}')">Cancel Selection</button>`;
           } else {
-            buttonHtml = `<button class="btn" onclick="selectSession('${slot}', '${session.id}')" ${isAnotherSelectedInSlot ? 'style="background-color:#ccc; color:#666;"' : ''}>
-              ${isAnotherSelectedInSlot ? 'Swap to this Session' : 'Sign Up'}
+            // Disabled style if they picked something else
+            buttonHtml = `<button class="btn" onclick="selectSession('${slot}', '${session.id}')" ${isAnotherSelectedInSlot ? 'style="background-color:#ccc; color:#666; cursor:not-allowed;"' : `style="background-color:${slotColor};"`}>
+              Sign Up
             </button>`;
           }
 
           let bioHtml = '';
-          if (session.bio) {
+          if (session.bio && session.bio.trim() !== "") {
             bioHtml = `
-              <div class="bio-toggle" onclick="toggleBio('${session.id}')">View Presenter Bio</div>
+              <div class="bio-toggle" onclick="toggleBio('${session.id}')" style="color:${slotColor}">View Presenter Bio</div>
               <div class="bio-content" id="bio-${session.id}">${session.bio}</div>
             `;
           }
 
           const card = document.createElement('div');
           card.className = 'card';
-          if (isSelected) card.style.borderLeftColor = "#0077C8"; // Blue if selected
+          if (isSelected) card.style.borderLeftColor = slotColor; 
           
           card.innerHTML = `
-            ${isSelected ? '<div class="status-badge">✓ You are registered</div>' : ''}
-            <h3>${session.title}</h3>
+            ${isSelected ? `<div class="status-badge" style="color:${slotColor}; background:var(--gray)">✓ You are registered</div>` : ''}
+            <h3 style="color:${slotColor}">${session.title}</h3>
             <div class="presenter">👤 ${session.presenter}</div>
-            <div class="room">📍 ${session.room}</div>
+            <div class="room">📍 Room ${session.room}</div>
             <p>${session.summary}</p>
             ${bioHtml}
             ${buttonHtml}
@@ -449,36 +288,34 @@
     function renderSchedule() {
       const container = document.getElementById('schedule-content');
       container.innerHTML = "";
-
       const slots = [...new Set(sessionsData.map(s => s.slot))];
-      let hasSessions = false;
 
       slots.forEach(slot => {
+        const slotColor = sessionsData.find(s => s.slot === slot).color;
         const header = document.createElement('div');
         header.className = 'time-slot-header';
+        header.style.backgroundColor = slotColor;
         header.innerText = slot;
         container.appendChild(header);
 
         if (slot === "Session 5: 3:00 PM") {
            container.innerHTML += `
-            <div class="card" style="border-left-color: var(--primary-blue)">
-              <h3>Happy Hour! 🥂</h3>
+            <div class="card" style="border-left-color: ${slotColor}">
+              <h3 style="color:${slotColor}">Happy Hour! 🥂</h3>
               <div class="room">📍 MPR</div>
               <p>Time to relax, mingle, and celebrate a great day of learning.</p>
             </div>`;
-           hasSessions = true;
            return;
         }
 
         const selectedId = userSchedule[slot];
         if (selectedId) {
-          hasSessions = true;
           const session = sessionsData.find(s => s.id === selectedId);
           container.innerHTML += `
-            <div class="card" style="border-left-color: var(--primary-blue)">
-              <h3>${session.title}</h3>
+            <div class="card" style="border-left-color: ${slotColor}">
+              <h3 style="color:${slotColor}">${session.title}</h3>
               <div class="presenter">👤 ${session.presenter}</div>
-              <div class="room">📍 ${session.room}</div>
+              <div class="room">📍 Room ${session.room}</div>
               <button class="btn remove-btn" onclick="removeSession('${slot}')">Remove from Schedule</button>
             </div>
           `;
@@ -488,11 +325,52 @@
       });
     }
 
+    function renderPresenters() {
+      const container = document.getElementById('presenters-content');
+      container.innerHTML = "";
+      
+      const allSignups = getMockDatabase();
+      const slots = [...new Set(sessionsData.map(s => s.slot))];
+
+      slots.forEach(slot => {
+        if (slot === "Session 5: 3:00 PM") return; // Skip happy hour
+        
+        const slotColor = sessionsData.find(s => s.slot === slot).color;
+        const header = document.createElement('div');
+        header.className = 'time-slot-header';
+        header.style.backgroundColor = slotColor;
+        header.innerText = slot;
+        container.appendChild(header);
+
+        const sessionsInSlot = sessionsData.filter(s => s.slot === slot);
+        
+        sessionsInSlot.forEach(session => {
+          const attendees = allSignups[session.id] || [];
+          let rosterHtml = attendees.length > 0 
+            ? attendees.map(email => `<li>${email}</li>`).join('') 
+            : `<li style="list-style:none; font-style:italic; color:#888;">No registrations yet.</li>`;
+
+          const card = document.createElement('div');
+          card.innerHTML = `
+            <div class="roster-toggle" onclick="toggleRoster('${session.id}')">
+               ▶ ${session.title} (${attendees.length} signed up)
+            </div>
+            <ul class="roster-list" id="roster-${session.id}">
+              ${rosterHtml}
+            </ul>
+          `;
+          container.appendChild(card);
+        });
+      });
+    }
+
     function switchTab(tab) {
       document.getElementById('nav-catalog').classList.remove('active');
       document.getElementById('nav-schedule').classList.remove('active');
+      document.getElementById('nav-presenters').classList.remove('active');
       document.getElementById('catalog-view').classList.add('hidden');
       document.getElementById('schedule-view').classList.add('hidden');
+      document.getElementById('presenters-view').classList.add('hidden');
 
       if (tab === 'catalog') {
         document.getElementById('nav-catalog').classList.add('active');
@@ -500,9 +378,12 @@
       } else if (tab === 'schedule') {
         document.getElementById('nav-schedule').classList.add('active');
         document.getElementById('schedule-view').classList.remove('hidden');
+      } else if (tab === 'presenters') {
+        renderPresenters(); // Refresh data before showing
+        document.getElementById('nav-presenters').classList.add('active');
+        document.getElementById('presenters-view').classList.remove('hidden');
       }
-      
-      window.scrollTo(0, 0); // Scroll to top on tab switch
+      window.scrollTo(0, 0); 
     }
   </script>
 </body>
